@@ -63,7 +63,7 @@ void printCard()
     lcd.clear();
     lcd.setCursor(0, 0);
 
-    String progress = "Progress: ";
+    String progress = "Progress:";
     for (int i = 0; i < puzzle_comb.get_id_index(); i++) {
         progress += String((char) square_char[i]);
     }
