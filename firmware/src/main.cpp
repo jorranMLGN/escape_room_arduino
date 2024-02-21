@@ -41,20 +41,35 @@ byte square_char[8] = {
 
 void setup()
 {
+    current_id = 0;
+    previous_id = 0;
     Serial.begin(9600);
-    while (!Serial)
-        ;
     rfidReader.begin();
 
     Serial.println("Init done");
     lcd.begin(16, 2);
     lcd.createChar(0, square_char);
+    delay(1000);
+    lcd.setCursor(0, 0);
+    lcd.print("Enter Formula:");
+    delay(1000);
+
 }
+
+
 
 void printCard()
 {
     lcd.clear();
     lcd.setCursor(0, 0);
+
+    String progress = "Progress: ";
+    for (int i = 0; i < puzzle_comb.get_id_index(); i++) {
+        progress += String((char) square_char[i]);
+    }
+    lcd.print(progress);
+    lcd.setCursor(0, 1);
+
     switch (current_id)
     {
     case C1:
@@ -98,15 +113,30 @@ void loop()
         {
             Serial.write(current_id);
             puzzle_comb.add(current_id);
+            
             printCard();
             if (puzzle_comb.is_correct())
             {
+                delay(1000);
                 Serial.write("Correct Combination");
                 lcd.clear();
                 lcd.setCursor(0,0);
                 lcd.write("Success!");
                 lcd.setCursor(0,1);
                 lcd.write("1234");
+                delay(4000);
+                puzzle_comb.reset();
+                setup();
+
+            } else if (puzzle_comb.get_id_index() == 6) {
+                delay(1000);
+                Serial.write("Incorrect Combination");
+                lcd.clear();
+                lcd.setCursor(0,0);
+                lcd.write("Incorrect");
+                delay(4000);
+                puzzle_comb.reset();
+                setup();
             }
         }
     }

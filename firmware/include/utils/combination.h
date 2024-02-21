@@ -9,11 +9,14 @@ public:
     combination();
     ~combination() = default;
 public:
+    int get_id_index();
+    void reset();
     void add(int id);
     bool is_correct();
+    int current_ids[6];
 private:
     int correct_ids[6];
-    int id_index;
+    int id_index = 0;
 };
 
 
