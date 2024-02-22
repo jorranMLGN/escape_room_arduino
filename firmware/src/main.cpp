@@ -51,9 +51,13 @@ void setup()
     lcd.createChar(0, square_char);
     delay(1000);
     lcd.setCursor(0, 0);
-    lcd.print("Enter Formula:");
+    lcd.print("Enter Formula: ");
+    lcd.setCursor(0, 1);
+    lcd.print("Needs 6 cards");
+    
     delay(1000);
 
+    lcd.setCursor(0, 0);
 }
 
 
@@ -123,7 +127,7 @@ void loop()
                 lcd.setCursor(0,0);
                 lcd.write("Success!");
                 lcd.setCursor(0,1);
-                lcd.write("1234");
+                lcd.write("6969");
                 delay(4000);
                 puzzle_comb.reset();
                 setup();
